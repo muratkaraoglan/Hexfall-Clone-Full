@@ -126,57 +126,57 @@ public class Manage : MonoBehaviour
                 //go.GetComponent<Hexagon>().bombText.text = (--go.GetComponent<Hexagon>().bombTimer).ToString();
             }
 
-            if (Input.touchCount>0 && !explosion && !selection) 
-            {
-                Touch touch = Input.GetTouch(0);
-                Debug.Log(touch.position);
-                DestroyOutSide();
-                selection = true;
-                Vector3 pos3D = Camera.main.ScreenToWorldPoint(touch.position);
-                Vector2 pos2D = new Vector2(pos3D.x, pos3D.y);
-                //Debug.DrawLine(mousePos, Vector3.forward,Color.red,5);
-                RaycastHit2D hit = Physics2D.Raycast(pos3D, Vector3.forward, 30);
-                if ( hit.collider != null )
-                {
-                    Vector2[] neighbours = hit.collider.gameObject.GetComponent<Hexagon>().GetNeighbour();
-                    //seçilen hex
-                    selectedHexagon = hit.collider.gameObject;
-                    List<float> distanceList = new List<float>();
-                    int NIndex1, NIndex2;
-                    float distance;
-                    for ( int i = 0; i < neighbours.Length; i++ )
-                    {
-                        distance = Vector3.Distance(pos2D, neighbours[i]);
-                        distanceList.Add(distance);
-                        //Debug.Log(distance);
-                    }
-                    //seçilen hex'in tıklanılan pozisyona göre en yakın komşularının pozisyonları için neighbours dizisindeki indislerinin belirlenmesi
-                    var min1 = distanceList.Min();
-                    NIndex1 = distanceList.IndexOf(min1);
-                    //distanceList[NIndex1] = 9f;
+            //if (Input.touchCount>0 && !explosion && !selection) 
+            //{
+            //    Touch touch = Input.GetTouch(0);
+            //    Debug.Log(touch.position);
+            //    DestroyOutSide();
+            //    selection = true;
+            //    Vector3 pos3D = Camera.main.ScreenToWorldPoint(touch.position);
+            //    Vector2 pos2D = new Vector2(pos3D.x, pos3D.y);
+            //    //Debug.DrawLine(mousePos, Vector3.forward,Color.red,5);
+            //    RaycastHit2D hit = Physics2D.Raycast(pos3D, Vector3.forward, 30);
+            //    if ( hit.collider != null )
+            //    {
+            //        Vector2[] neighbours = hit.collider.gameObject.GetComponent<Hexagon>().GetNeighbour();
+            //        //seçilen hex
+            //        selectedHexagon = hit.collider.gameObject;
+            //        List<float> distanceList = new List<float>();
+            //        int NIndex1, NIndex2;
+            //        float distance;
+            //        for ( int i = 0; i < neighbours.Length; i++ )
+            //        {
+            //            distance = Vector3.Distance(pos2D, neighbours[i]);
+            //            distanceList.Add(distance);
+            //            //Debug.Log(distance);
+            //        }
+            //        //seçilen hex'in tıklanılan pozisyona göre en yakın komşularının pozisyonları için neighbours dizisindeki indislerinin belirlenmesi
+            //        var min1 = distanceList.Min();
+            //        NIndex1 = distanceList.IndexOf(min1);
+            //        //distanceList[NIndex1] = 9f;
 
-                    //var min2 = distanceList.Min();
-                    //NIndex2 = distanceList.IndexOf(min2);
+            //        //var min2 = distanceList.Min();
+            //        //NIndex2 = distanceList.IndexOf(min2);
 
-                    //seçilen hex'in komşuları
-                    Neigh1 = FindGameObject(neighbours[NIndex1]);
-                    if ( NIndex1 == 5 )
-                    {
-                        Neigh2 = FindGameObject(neighbours[0]);
-                    }
-                    else 
-                    {
-                        Neigh2 = FindGameObject(neighbours[NIndex1+1]);
-                    }
+            //        //seçilen hex'in komşuları
+            //        Neigh1 = FindGameObject(neighbours[NIndex1]);
+            //        if ( NIndex1 == 5 )
+            //        {
+            //            Neigh2 = FindGameObject(neighbours[0]);
+            //        }
+            //        else 
+            //        {
+            //            Neigh2 = FindGameObject(neighbours[NIndex1+1]);
+            //        }
                    
-                    //Seçilen hex'lerin arka planlarının değiştirilmesi
-                    selectedBG1 = Instantiate(selectedBGPrefab, selectedHexagon.transform.position, Quaternion.identity);
-                    selectedBG2 = Instantiate(selectedBGPrefab, Neigh1.transform.position, Quaternion.identity);
-                    selectedBG3 = Instantiate(selectedBGPrefab, Neigh2.transform.position, Quaternion.identity);
+            //        //Seçilen hex'lerin arka planlarının değiştirilmesi
+            //        selectedBG1 = Instantiate(selectedBGPrefab, selectedHexagon.transform.position, Quaternion.identity);
+            //        selectedBG2 = Instantiate(selectedBGPrefab, Neigh1.transform.position, Quaternion.identity);
+            //        selectedBG3 = Instantiate(selectedBGPrefab, Neigh2.transform.position, Quaternion.identity);
 
-                    StartCoroutine(RotateSelectedHexagons());
-                }
-            }
+            //        StartCoroutine(RotateSelectedHexagons());
+            //    }
+            //}
         }
     }
     IEnumerator RotateSelectedHexagons()
@@ -514,19 +514,6 @@ public class Manage : MonoBehaviour
 
 
         yield return new WaitForSeconds(1f);
-
-        //int size = hexListH.SelectMany(list => list).Count();
-        //Debug.Log("Before Distinct: " + size);
-        //hexListH = hexListH.Distinct().ToList();
-        //size = hexListH.SelectMany(list => list).Count();
-        //Debug.Log("After Distinct: " + size);
-
-        //GameObject[] gos = GameObject.FindGameObjectsWithTag("HexagonTAG");
-
-        //Debug.Log("Hexagon sayisi: " + gos.Length);
-        //Debug.Log("Id sayisi: " + hexIDs.Count);
-
-        //Debug.Log("///////////////////////////////////////////////");
         explosion = false;
         selection = false;
     }

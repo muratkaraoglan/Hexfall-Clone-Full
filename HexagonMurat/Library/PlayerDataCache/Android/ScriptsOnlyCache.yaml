@@ -870,4 +870,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/MenuScene.unity
   - Assets/Scenes/GameScene.unity
-  playerPath: D:/unity projects/HexagonMurat/hexfallclone.apk
+  playerPath: C:/Users/negat/Desktop/Hexfall Murat.apk
